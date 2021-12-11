@@ -83,15 +83,32 @@ st.markdown("""Essa demonstração faz uso do streamlit, xgboost e shap para exp
 dataset_name = st.selectbox('Selecione o modelo', ['moons', 'blobs', 'circles', 'linear']) # select your dataset
 
 st.sidebar.title("Coloque as informações do paciente") # seleect your dataset params
-setor  = st.sidebar.selectbox('Setor', np.arange(100, 800, 100)) # data points
+setor  = st.sidebar.selectbox('Setor', [
+                            "UTIG",
+                            "1AP2",
+                            "4AP2",
+                            "UTIC",
+                            "UTIP",
+                            "3AP1",
+                            "3AP2",
+                            "4AP1",
+                            "1AP1",
+                            "2AP2",
+                            "UIP",
+                            "3AP3",
+                            "1AP2 - 126",
+                            "2AP1",
+                            "3AP3 - EPI",
+                            "SEMI-CO",
+                            ]) # data points
 
-idade  = st.sidebar.number_input('Idade',value=0.)
-temp  = st.sidebar.number_input('Temperatura',value=0.)
-resp  = st.sidebar.number_input('Frequência respiratória', value=0.)
-sisto  = st.sidebar.number_input('Pressão Sistólica', value=0.)
-diasto  = st.sidebar.number_input('Pressão Diastólica', value=0.)
-media  = st.sidebar.number_input('Pressão Média', value=0.)
-o2  = st.sidebar.number_input('Saturação O2', value=0.)
+idade  = st.sidebar.number_input('Idade',value=87,step=1)
+temp  = st.sidebar.number_input('Temperatura',value=36.)
+resp  = st.sidebar.number_input('Frequência respiratória', value=18.)
+sisto  = st.sidebar.number_input('Pressão Sistólica', value=128.)
+diasto  = st.sidebar.number_input('Pressão Diastólica', value=75.)
+media  = st.sidebar.number_input('Pressão Média', value=93.)
+o2  = st.sidebar.number_input('Saturação O2', value=91.)
 submit = st.sidebar.button('Fazer Predição')
 
 ### Carregar modelos do matplotlib
@@ -109,7 +126,8 @@ column_names=[  'Idade','Setor','Temperatura','Frequência respiratória',
             ]
 
 if submit:
-    sample = [87, "UTIG", 36.0, 18.0, 128.0, 75.0, 93.0, 91.0]
+    sample=[idade,setor,temp,resp,sisto,diasto,media,o2]
+    # sample = [87, "UTIG", 36.0, 18.0, 128.0, 75.0, 93.0, 91.0]
     extra_features=binning(sample,column_names)
     sample.extend(list(extra_features.flatten()))
     print(sample)
