@@ -1,6 +1,13 @@
 import pandas as pd
 import numpy as np
-def binning(df,column_names):
+
+column_names=[  'Idade','Setor','Temperatura','Frequência respiratória',
+                'Pressão Sistólica','Pressão Diastólica',
+                'Pressão Média','Saturação O2',
+                'Bin_Temperatura','Bin_Respiração',
+                'Bin_Sistólica','Bin_Média','Bin_o2']
+                
+def binning(df):
     df={column_names[k]:[df[k]] for k in range(len(df))}
     df=pd.DataFrame.from_dict(df)
     
