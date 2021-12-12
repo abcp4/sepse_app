@@ -158,6 +158,7 @@ if submit:
     features=data['features']
     if modelo_name != 'Modelo sem setor':
         shap_values = explainer.shap_values(features)
+        features[1]=label_encoder.inverse_transform([features[1]])[0]
         features={column_names[k]:[features[k]] for k in range(len(features))}
         features=pd.DataFrame.from_dict(features)
     else:
@@ -166,7 +167,7 @@ if submit:
         features=pd.DataFrame.from_dict(features)
     
     # st.write("Predição: ", labels[int(y_pred[0])])
-
+    print(features)
     fig, ax = plt.subplots(nrows=1, ncols=1)
     
     p =shap.force_plot(explainer.expected_value, shap_values[0,:], features)
